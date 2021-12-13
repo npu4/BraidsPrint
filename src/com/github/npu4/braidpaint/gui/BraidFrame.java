@@ -6,13 +6,12 @@ import java.awt.*;
 public class BraidFrame extends JFrame {
     public static int sizeOfFrame = 600;
 
-    public BraidFrame(){
+    public BraidFrame() {
         JMenu fileMenu = new JMenu("Файл");
 
         JMenuItem exitItem = new JMenuItem("Выход", new ImageIcon("exit.jpg"));
-        exitItem.addActionListener(e-> System.exit(0));
+        exitItem.addActionListener(e -> System.exit(0));
         exitItem.setAccelerator(KeyStroke.getKeyStroke("ctrl X"));
-
         fileMenu.add(exitItem);
 
 
@@ -24,19 +23,36 @@ public class BraidFrame extends JFrame {
         JMenu helpMenu = new JMenu("Справка");
         helpMenu.add(aboutItem);
 
+
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(fileMenu);
         menuBar.add(helpMenu);
         setJMenuBar(menuBar);
 
-        BraidPanel panel = new BraidPanel();
-        panel.setLayout(new BorderLayout());
-        getContentPane().removeAll();
-        getContentPane().add(panel);
-        JButton updateButton = new JButton("Обновить");
-        updateButton.addActionListener(e -> panel.flagToContinue = true);
-        panel.add(updateButton, BorderLayout.SOUTH);
 
+        JPanel xCodePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        int updateButtonWidth = 100;
+        JTextField xCode = new JTextField();
+        xCode.setPreferredSize(new Dimension(sizeOfFrame-updateButtonWidth-40, 25));
+        xCodePanel.add(xCode);
+
+        JButton updateButton = new JButton("Обновить");
+        //updateButton.addActionListener(e -> xCodePanel.flagToContinue = true);
+        updateButton.setPreferredSize(new Dimension(updateButtonWidth, 25));
+        xCodePanel.add(updateButton);
+
+
+        BraidPanel braidPanel = new BraidPanel();
+        braidPanel.setLayout(new BorderLayout());
+        braidPanel.setPreferredSize(new Dimension(sizeOfFrame-40, sizeOfFrame-70));
+
+
+        braidPanel.add(xCodePanel, BorderLayout.SOUTH);
+        Container container = getContentPane();
+        container.add(braidPanel, BorderLayout.CENTER);
+
+
+        setVisible(true);
         setPreferredSize(new Dimension(sizeOfFrame, sizeOfFrame)); // задаем размеры окна
         pack();
     }
