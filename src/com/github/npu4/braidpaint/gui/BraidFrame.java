@@ -1,15 +1,21 @@
 package com.github.npu4.braidpaint.gui;
 
+import com.github.npu4.braidpaint.braid.BraidString;
+import com.github.npu4.braidpaint.braid.stringCharcteristics.StringType;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BraidFrame extends JFrame {
-    public static int sizeOfFrame = 600;
+    public static int widthOfFrame = 1000;
+    public static int heightOfFrame = 600;
 
     public BraidFrame() {
         JMenu fileMenu = new JMenu("Файл");
 
-        JMenuItem exitItem = new JMenuItem("Выход", new ImageIcon("exit.jpg"));
+        JMenuItem exitItem = new JMenuItem("Выход");
         exitItem.addActionListener(e -> System.exit(0));
         exitItem.setAccelerator(KeyStroke.getKeyStroke("ctrl X"));
         fileMenu.add(exitItem);
@@ -33,18 +39,32 @@ public class BraidFrame extends JFrame {
         JPanel xCodePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         int updateButtonWidth = 100;
         JTextField xCode = new JTextField();
-        xCode.setPreferredSize(new Dimension(sizeOfFrame-updateButtonWidth-40, 25));
-        xCodePanel.add(xCode);
+        xCode.setPreferredSize(new Dimension(widthOfFrame-updateButtonWidth-40, 25));
 
         JButton updateButton = new JButton("Обновить");
-        //updateButton.addActionListener(e -> xCodePanel.flagToContinue = true);
         updateButton.setPreferredSize(new Dimension(updateButtonWidth, 25));
-        xCodePanel.add(updateButton);
 
 
-        BraidPanel braidPanel = new BraidPanel();
+        // TO DO: make it selectable
+        List<BraidString> braidString = new ArrayList<>();
+        braidString.add(new BraidString(StringType.BOLD));
+        braidString.add(new BraidString(StringType.TINY));
+        braidString.add(new BraidString(StringType.BOLD));
+        braidString.add(new BraidString(StringType.BOLD));
+        braidString.add(new BraidString(StringType.TINY));
+        braidString.add(new BraidString(StringType.BOLD));
+        braidString.add(new BraidString(StringType.BOLD));
+
+        BraidPanel braidPanel = new BraidPanel(xCode.getText(), braidString);
         braidPanel.setLayout(new BorderLayout());
-        braidPanel.setPreferredSize(new Dimension(sizeOfFrame-40, sizeOfFrame-70));
+        braidPanel.setPreferredSize(new Dimension(widthOfFrame-40, heightOfFrame-40));
+        xCodePanel.add(xCode);
+
+        updateButton.addActionListener(e -> {
+            BraidPanel.flagToContinue = true;
+            BraidPanel.setXCode(xCode.getText());
+        });
+        xCodePanel.add(updateButton);
 
 
         braidPanel.add(xCodePanel, BorderLayout.SOUTH);
@@ -53,7 +73,7 @@ public class BraidFrame extends JFrame {
 
 
         setVisible(true);
-        setPreferredSize(new Dimension(sizeOfFrame, sizeOfFrame)); // задаем размеры окна
+        setPreferredSize(new Dimension(widthOfFrame, heightOfFrame));
         pack();
     }
 }
