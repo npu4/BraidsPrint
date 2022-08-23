@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BraidFrame extends JFrame {
-    public static int widthOfFrame = 1000;
-    public static int heightOfFrame = 600;
+    public static int widthOfFrame = 1500;
+    public static int heightOfFrame = 300;
 
     public BraidFrame() {
         JMenu fileMenu = new JMenu("Файл");

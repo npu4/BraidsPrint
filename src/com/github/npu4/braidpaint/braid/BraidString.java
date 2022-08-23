@@ -8,6 +8,7 @@ import java.util.List;
 
 public class BraidString {
     StringType stringType;
+    int index;
     public List<Point> points = new ArrayList<>(); // points for drawing braid
 
     public BraidString(StringType stringType) {
@@ -20,6 +21,14 @@ public class BraidString {
 
     public void setStringType(StringType stringType) {
         this.stringType = stringType;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public List<Point> getPoints() {
